@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "Hevra_Final_For_GitHub",
+    "public": ".",
     "ignore": [
       "firebase.json",
       "**/.*",
