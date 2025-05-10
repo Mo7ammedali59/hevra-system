@@ -1,10 +1,16 @@
 {
   "hosting": {
-    "public": ".",
+    "public": "Hevra_Final_For_GitHub",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   }
 }
