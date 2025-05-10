@@ -1,317 +1,17 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Integrated Hevra Platform</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-  <style>
-    body {
-      background: linear-gradient(to right, #f8f9fa, #e9ecef);
-      font-family: 'Poppins', sans-serif;
-      min-height: 100vh;
-    }
-
-    .custom-header {
-      background-color: #1b3b68;
-      color: white;
-      padding: 15px;
-      text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .custom-container {
-      max-width: 500px;
-      margin: 30px auto;
-      padding: 0 15px;
-    }
-
-    .custom-form-section {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      padding: 25px;
-    }
-
-    .form-control {
-      padding: 8px 12px;
-      border-radius: 6px;
-      border: 1px solid #ced4da;
-      font-size: 0.9rem;
-      height: 38px;
-    }
-
-    .form-control:focus {
-      border-color: #1b3b68;
-      box-shadow: 0 0 0 0.2rem rgba(27, 59, 104, 0.25);
-    }
-
-    .btn-primary {
-      background-color: #1b3b68;
-      border: none;
-      padding: 8px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      border-radius: 6px;
-      height: 38px;
-    }
-
-    .btn-primary:hover {
-      background-color: #143256;
-    }
-
-    .custom-link {
-      color: #1b3b68;
-      text-decoration: none;
-      font-size: 0.85rem;
-      display: inline-block;
-      margin: 5px 10px;
-    }
-
-    .custom-link:hover {
-      text-decoration: underline;
-    }
-
-    .password-toggle {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      cursor: pointer;
-      color: #6c757d;
-      font-size: 0.9rem;
-    }
-
-    .password-container {
-      position: relative;
-    }
-
-    .form-check-label {
-      font-size: 0.85rem;
-    }
-
-    .form-check-input {
-      margin-top: 0.15rem;
-    }
-
-    .form-label {
-      font-size: 0.85rem;
-      margin-bottom: 0.3rem;
-    }
-
-    h2 {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-    }
-
-    p.text-muted {
-      font-size: 0.85rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .logo-wrapper {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .logo-wrapper img {
-      max-width: 150px;
-      height: auto;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
 </head>
-
 <body>
-  <!-- Header -->
-  <div class="custom-header">
-    <h1>Hevra Platform</h1>
-  </div>
-
-  <!-- Main Container -->
-  <div class="container custom-container">
-    <!-- Logo Section -->
-    <div class="logo-wrapper">
-      <img src="images/logo.png" alt="Hevra Logo">
-    </div>
-
-    <!-- Login Form Section -->
-    <div class="custom-form-section">
-      <h2 class="mb-2">Welcome Back!</h2>
-      <p class="text-muted mb-3">Please enter your credentials to access your account</p>
-      
-      <form id="login-form" novalidate>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" placeholder="user@example.com" required>
-          <div class="invalid-feedback" style="font-size: 0.75rem;">Please enter a valid email address</div>
-        </div>
-
-        <div class="mb-3 password-container">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
-          <i class="bi bi-eye-slash password-toggle" id="togglePassword"></i>
-          <div class="invalid-feedback" style="font-size: 0.75rem;">Please enter your password</div>
-        </div>
-
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="rememberMe">
-          <label class="form-check-label" for="rememberMe">Remember me</label>
-        </div>
-
-        <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
-      </form>
-
-      <div class="text-center">
-        <a href="forget-password.html" class="custom-link">Forgot Password?</a>
-        <a href="signup.html" class="custom-link">Don't have an account? Sign Up</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal for Messages -->
-  <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header py-2">
-          <h5 class="modal-title fs-6" id="messageModalLabel">Message</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body p-3" id="modalMessage" style="font-size: 0.9rem;"></div>
-        <div class="modal-footer py-2">
-          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Toggle password visibility
-      const togglePassword = document.getElementById('togglePassword');
-      const passwordInput = document.getElementById('password');
-      
-      togglePassword.addEventListener('click', function() {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        this.classList.toggle('bi-eye');
-        this.classList.toggle('bi-eye-slash');
-      });
-
-      // Form submission
-      const loginForm = document.getElementById('login-form');
-      const modal = new bootstrap.Modal(document.getElementById('messageModal'));
-
-      // Modal show function
-      function showModal(title, message, autoHide = false) {
-        document.getElementById('messageModalLabel').textContent = title;
-        document.getElementById('modalMessage').innerHTML = message;
-        modal.show();
-        if (autoHide) {
-          setTimeout(() => modal.hide(), 2000);
-        }
-      }
-
-      loginForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        if (!loginForm.checkValidity()) {
-          e.stopPropagation();
-          loginForm.classList.add('was-validated');
-          return;
-        }
-
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value;
-        const rememberMe = document.getElementById('rememberMe').checked;
-
-        // Get stored users from localStorage (in a real app, this would be an API call)
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-        
-        // Find the user with matching email
-        const user = users.find(u => u.email === email);
-        
-        if (!user) {
-          showModal('Error', 'No account found with this email address. Please sign up.');
-          return;
-        }
-
-        // In a real app, you would hash the password and compare with stored hash
-        if (user.password !== password) {
-          showModal('Error', 'Incorrect password. Please try again.');
-          return;
-        }
-
-        // For demo purposes, we'll store the logged-in user in sessionStorage
-        sessionStorage.setItem('currentUser', JSON.stringify(user));
-        
-        // Set remember me cookie if checked
-        if (rememberMe) {
-          document.cookie = `userEmail=${email}; max-age=${30 * 24 * 60 * 60}; path=/`;
-        }
-
-        showModal('Login Successful', 'You are being redirected to your dashboard...', true);
-        
-        setTimeout(() => {
-          const redirectUrl = user.userType === 'Admin' ? 'admin/dashboard.html' : 'Patient/patient-dashboard.html';
-          window.location.href = redirectUrl;
-        }, 2000);
-      });
-    });
-  </script>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyCtq84Ryxnzmirz7dnlPq8QZRA_0we70",
-    authDomain: "hevra-70517.firebaseapp.com",
-    projectId: "hevra-70517",
-    storageBucket: "hevra-70517.appspot.com",
-    messagingSenderId: "368783122548",
-    appId: "1:368783122548:web:ace464dec39d7185cbb121"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
-
-  function loginUser() {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    auth.signInWithEmailAndPassword(email, password)
-      .then(userCredential => {
-        const user = userCredential.user;
-        if (!user.emailVerified) {
-          alert("Please verify your email before logging in.");
-          return auth.signOut();
-        }
-        return db.collection("users").doc(user.uid).get().then(doc => {
-          const data = doc.data();
-          if (data.type === "Admin") {
-            window.location.href = "admin-dashboard.html";
-          } else if (data.type === "Doctor") {
-            window.location.href = "doctor-dashboard.html";
-          } else if (data.type === "Patient") {
-            window.location.href = "patient-dashboard.html";
-          } else {
-            alert("Role not recognized.");
-          }
-        });
-      })
-      .catch(error => {
-        alert("Error: " + error.message);
-      });
-  }
-</script>
-
+  <form id="login-form">
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button type="submit">Login</button>
+  </form>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
@@ -331,27 +31,19 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  document.getElementById("login-form").addEventListener("submit", async function (e) {
+  document.getElementById("login-form").addEventListener("submit", async (e) => {
     e.preventDefault();
     const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
+    const password = document.getElementById("password").value.trim();
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
-      if (!user.emailVerified) {
-        alert("Please verify your email before logging in.");
-        return;
-      }
-
-      const docRef = doc(db, "users", user.uid);
+      const docRef = doc(db, "Users", user.uid);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        const data = docSnap.data();
-        const role = data.role || data.type;
-
+        const role = docSnap.data().role;
         if (role === "Admin") {
           window.location.href = "/Admin/dashboard.html";
         } else if (role === "Doctor") {
@@ -359,14 +51,13 @@
         } else if (role === "Patient") {
           window.location.href = "/Patient/dashboard.html";
         } else {
-          alert("Role not recognized.");
+          alert("Unknown role, please contact support.");
         }
       } else {
         alert("User data not found in Firestore.");
       }
     } catch (error) {
-      console.error("Login error:", error.message);
-      alert("Error: " + error.message);
+      alert("Login error: " + error.message);
     }
   });
 </script>
