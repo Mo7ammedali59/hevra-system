@@ -513,5 +513,66 @@
 </script>
 <div id="recaptcha-container"></div>
 
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCtq84Ryxnzmirz7dnlPq8QZRA_0we70",
+    authDomain: "hevra-70517.firebaseapp.com",
+    projectId: "hevra-70517",
+    storageBucket: "hevra-70517.appspot.com",
+    messagingSenderId: "368783122548",
+    appId: "1:368783122548:web:ace464dec39d7185cbb121"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const signupForm = document.getElementById("signup-form");
+  signupForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const firstName = document.getElementById("firstName").value.trim();
+    const middleName = document.getElementById("middleName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const password = document.getElementById("password").value;
+    const gender = document.getElementById("gender").value;
+    const role = document.getElementById("userType").value;
+    const dob = document.getElementById("dob") ? document.getElementById("dob").value : "";
+    const condition = document.getElementById("condition") ? document.getElementById("condition").value : "";
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      await sendEmailVerification(userCredential.user);
+
+      const uid = userCredential.user.uid;
+
+      await setDoc(doc(db, "users", uid), {
+        firstName,
+        middleName,
+        lastName,
+        email,
+        phone,
+        gender,
+        role,
+        dob,
+        condition
+      });
+
+      alert("Account created successfully! Please verify your email.");
+      window.location.href = "login.html";
+    } catch (error) {
+      console.error("Signup error:", error.message);
+      alert("Error: " + error.message);
+    }
+  });
+</script>
 </body>
+
 </html>
