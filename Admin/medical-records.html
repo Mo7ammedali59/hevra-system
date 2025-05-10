@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Records - Admin</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="js/dashboard.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Hevra+ Management System</h2>
+        <ul>
+            <li><a href="dashboard.html"><i class="bi bi-speedometer2"></i> Home</a></li>
+            <li><a href="patients.html"><i class="bi bi-person"></i> Patients</a></li>
+            <li><a href="doctors.html"><i class="bi bi-people"></i> Doctors</a></li>
+            <li><a href="appointments.html"><i class="bi bi-calendar-check"></i> Appointments</a></li>
+            <li><a href="user-management.html"><i class="bi bi-person-gear"></i> User Management</a></li>
+            <li><a href="reports.html"><i class="bi bi-file-earmark-text"></i> Reports</a></li>
+            <li  class="active"><a href="medical-records.html"><i class="bi bi-clock-history"></i> Medical Records</a></li>
+            <li><a href="store.html"><i class="bi bi-shop"></i> Manage Store</a></li>
+            <li><a href="#" onclick="logout()"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+        </ul>
+        <div class="robot-logo">
+            <img src="../images/profile.png" alt="Robot Logo">
+        </div>
+    </div>
+
+
+    <div class="main-content">
+        <div class="header-bar">
+            <span class="menu-icon"><i ></i></span>
+            <h3>Medical Records Management</h3>
+            <h4>Welcome, Admin!</h4>
+        </div>
+
+        <!-- Audit Controls -->
+        <div class="audit-bar">
+            <div class="audit-info">
+                <i class="bi bi-shield-lock"></i>
+                <span>Last Verified: 2023-08-15 14:30 UTC</span>
+            </div>
+            <div class="audit-actions">
+                <button class="btn audit-log">
+                    <i class="bi bi-clock-history"></i> View Audit Log
+                </button>
+            </div>
+        </div>
+
+        <!-- Advanced Filters -->
+        <div class="filter-bar">
+            <div class="search-group">
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" placeholder="Search patient records...">
+                </div>
+            </div>
+            <div class="filter-group">
+                <select class="type-filter">
+                    <option value="all">All Record Types</option>
+                    <option value="diagnosis">Diagnoses</option>
+                    <option value="treatment">Treatments</option>
+                    <option value="lab">Lab Results</option>
+                </select>
+                <input type="date" class="date-filter">
+                <select class="status-filter">
+                    <option value="all">All Statuses</option>
+                    <option value="verified">Verified</option>
+                    <option value="pending">Pending Review</option>
+                    <option value="archived">Archived</option>
+                </select>
+                <button class="btn export-btn">
+                    <i class="bi bi-file-earmark-medical"></i> Export Records
+                </button>
+            </div>
+        </div>
+
+        <!-- Records Table -->
+        <div class="records-container">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Patient ID</th>
+                            <th>Patient Name</th>
+                            <th>Record Type</th>
+                            <th>Date Created</th>
+                            <th>Last Modified</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="verified">
+                            <td>#PAT-230815</td>
+                            <td>Salem Aldosryi</td>
+                            <td><span class="type-badge diagnosis">Diagnosis</span></td>
+                            <td>2023-08-01</td>
+                            <td>2023-08-15 10:30</td>
+                            <td><span class="status-badge verified">Verified</span></td>
+                            <td>
+                                <div class="action-group">
+                                    <button class="btn view-btn">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="btn verify-btn">
+                                        <i class="bi bi-shield-check"></i>
+                                    </button>
+                                    <button class="btn archive-btn">
+                                        <i class="bi bi-archive"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="pending">
+                            <td>#PAT-230814</td>
+                            <td>Suad SUltan </td>
+                            <td><span class="type-badge lab">Lab Results</span></td>
+                            <td>2023-08-14</td>
+                            <td>2023-08-15 14:45</td>
+                            <td><span class="status-badge pending">Pending</span></td>
+                            <td>
+                                <div class="action-group">
+                                    <button class="btn view-btn">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                    <button class="btn verify-btn">
+                                        <i class="bi bi-shield-check"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Table Utilities -->
+            <div class="table-utilities">
+                <div class="pagination">
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">...</a>
+                    <a href="#">10</a>
+                </div>
+                <div class="data-summary">
+                    <span>Showing 1-20 of 1,234 records</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Record Preview Modal -->
+        <div class="modal-overlay">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Record Preview - #PAT-230815</h4>
+                    <button class="btn close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Record preview content -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/admin-script.js"></script>
+</body>
+</html>

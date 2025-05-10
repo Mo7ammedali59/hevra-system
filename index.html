@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> Hevra+ - Healthcare Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f7fa;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #1b3b68;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .logo img {
+      height: 80px;
+      width: auto;
+      background-color: #ddd;
+      border-radius: 10px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .buttons button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: 500;
+    }
+
+    .buttons button:hover {
+      background-color: #0056b3;
+    }
+
+    .menu-icon {
+      font-size: 24px;
+      color: white;
+      text-decoration: none;
+      margin-left: 10px;
+    }
+
+    /* Hero Slider Styles */
+    .hero-slider {
+      width: 100%;
+      height: 800px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slider-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .slide {
+      min-width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      position: relative;
+    }
+
+    .slide::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .slide-content {
+      max-width: 800px;
+      padding: 20px;
+      z-index: 1;
+    }
+
+    .slide h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .slide p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .slide-btn {
+      padding: 12px 30px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .slide-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .slider-nav {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+    }
+
+    .slider-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .slider-dot.active {
+      background-color: white;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .features-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: #007BFF;
+      margin-bottom: 20px;
+    }
+
+    .feature-title {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .feature-desc {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: #1b3b68;
+      color: white;
+      padding: 60px 20px 30px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .footer-section h3 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 40px;
+      height: 2px;
+      background-color: #007BFF;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-section ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-section ul li a {
+      color: #ddd;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-section ul li a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 30px;
+      margin-top: 30px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .app-badges {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .app-badge {
+      background: white;
+      color: #333;
+      padding: 8px 15px;
+      border-radius: 5px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-slider {
+        height: 400px;
+      }
+      
+      .slide h1 {
+        font-size: 2rem;
+      }
+      
+      .slide p {
+        font-size: 1rem;
+      }
+      
+      .features-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    .logo h1 {
+      font-size: 32px;
+      color: #ffffff;
+      margin-top: 5px;
+    }
+    .menu {
+      color: #ffffff;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 18px;
+      font-weight: 500;
+    }
+    .menu:hover {
+      text-decoration: underline;
+      color: #78ffb0;  
+    }
+    .buttons button:hover {
+      background-color: #0056b3;
+    }
+    .buttons button {
+      font-size: 16px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    .welcome-text {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  color: white;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+  background-color: rgba(27, 59, 104, 0.2);
+  padding: 15px;
+  border-radius: 8px;
+  max-width: 300px;
+}
+
+.welcome-text h1 {
+  font-size: 1.8rem;
+  margin-bottom: 5px;
+}
+
+.welcome-text p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <h1> Hevra</h1>
+    </div>
+    <div class="buttons">
+      <button onclick="location.href='login.html'">Login</button>
+      <button onclick="location.href='signup.html'">Signup</button>
+     <a href="about.html"class="menu">About Us</a>
+      <a href="doctor-login.html"class="menu">Hevra for Doctors</a>
+      <a href="disease-information.html"class="menu">Disease information</a>
+      <a href="doctor_information.html"class="menu">Doctor</a>
+    </div>
+  </header>
+
+  <!-- Hero Slider Section -->
+  <section class="hero-slider">
+    <div class="welcome-text">
+      <h1>Welcome to Hevra+</h1>
+      <p>Your trusted healthcare partner</p>
+    </div>
+    <div class="slider-container">
+      <!-- Slide 1 -->
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+        
+        <div class="slide-content">
+       
+  
+        </div>
+      </div>
+      
+      <!-- Slide 2 -->
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+        <div class="slide-content">
+          
+        </div>
+      </div>
+      
+      <!-- Slide 3 -->
+      <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1581056771107-24ca5f033842?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+        <div class="slide-content">
+        
+        </div>
+      </div>
+    </div>
+    
+    
+  </section>
+
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-container">
+      <!-- Left Box (Arabic Content) -->
+      <div class="footer-section">
+        <div class="social-media-links" style="margin-top: 20px; display: flex; justify-content: center; gap: 20px;">
+          <a href="https://x.com" target="_blank" style="color: white; font-size: 24px;"><i class="fab fa-x"></i></a>
+          <a href="https://instagram.com" target="_blank" style="color: white; font-size: 24px;"><i class="fab fa-instagram"></i></a>
+          <a href="https://facebook.com" target="_blank" style="color: white; font-size: 24px;"><i class="fab fa-facebook"></i></a>
+        </div>
+        <div class="app-badges" style="margin-top: 20px;">
+          <a href="https://www.apple.com/app-store/" target="_blank" class="app-badge" style="background: #007BFF; color: white; border: 2px solid white;">
+            <i class="fab fa-apple" style="font-size: 20px;"></i> Download on the App Store
+          </a>
+        </div>
+      </div>
+  
+      <!-- Middle Box (Speciality + Doctor Call to Action) -->
+      <div class="footer-section">
+        <h3>Speciality</h3>
+        <ul>
+          <li><a href="specialty.html">Speciality Doctors</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Are you doctor?</h3>
+        <ul>
+          <li><a href="doctor-login.html"> 
+            Join Hevra doctor</a></li>
+        </ul>
+      </div>
+      <!-- Right Box (Help Section) -->
+      <div class="footer-section">
+        <h3>Need Help?</h3>
+        <ul>
+          <li><a href="support.html">Help Desk</a></li>
+          
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="doctor-privacy-policy.html">Doctor Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+  
+    <div class="footer-bottom">
+     
+      <p style="margin-top: 30px;">&copy; 2025 Hevra+. All rights reserved.</p>
+    </div>
+  </footer>
+  
+
+  <script>
+    // Hero Slider Functionality
+    let currentSlideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.slider-dot');
+    const sliderContainer = document.querySelector('.slider-container');
+    let slideInterval;
+
+    function showSlide(index) {
+      // Wrap around if at ends
+      if (index >= slides.length) {
+        currentSlideIndex = 0;
+      } else if (index < 0) {
+        currentSlideIndex = slides.length - 1;
+      } else {
+        currentSlideIndex = index;
+      }
+      
+      // Update slider position
+      sliderContainer.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
+      
+      // Update dots
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlideIndex);
+      });
+    }
+
+    function goToSlide(index) {
+      showSlide(index);
+      resetInterval();
+    }
+
+    function nextSlide() {
+      showSlide(currentSlideIndex + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentSlideIndex - 1);
+    }
+
+    function startInterval() {
+      slideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+    }
+
+    function resetInterval() {
+      clearInterval(slideInterval);
+      startInterval();
+    }
+
+    // Initialize slider
+    startInterval();
+
+    // Pause on hover
+    const slider = document.querySelector('.hero-slider');
+    slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+    slider.addEventListener('mouseleave', startInterval);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        nextSlide();
+        resetInterval();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+        resetInterval();
+      }
+    });
+  </script>
+</body>
+</html>

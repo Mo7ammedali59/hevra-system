@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics & Reports - Admin</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/dashboard.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Hevra+ Management System</h2>
+        <ul>
+            <li><a href="dashboard.html"><i class="bi bi-speedometer2"></i> Home</a></li>
+            <li><a href="patients.html"><i class="bi bi-person"></i> Patients</a></li>
+            <li><a href="doctors.html"><i class="bi bi-people"></i> Doctors</a></li>
+            <li><a href="appointments.html"><i class="bi bi-calendar-check"></i> Appointments</a></li>
+            <li><a href="user-management.html"><i class="bi bi-person-gear"></i> User Management</a></li>
+            <li class="active"><a href="reports.html"><i class="bi bi-file-earmark-text"></i> Reports</a></li>
+            <li><a href="medical-records.html"><i class="bi bi-clock-history"></i> Medical Records</a></li>
+            <li><a href="store.html"><i class="bi bi-shop"></i> Manage Store</a></li>
+            <li><a href="#" onclick="logout()"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+        </ul>
+        <div class="robot-logo">
+            <img src="../images/profile.png" alt="Robot Logo">
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="header-bar">
+            <span class="menu-icon"><i ></i></span>
+            <h3>Analytics & Reports</h3>
+            <h4>Welcome, Admin!</h4>
+        </div>
+
+        <!-- Report Metrics -->
+        <div class="report-metrics">
+            <div class="metric-card">
+                <i class="bi bi-cash"></i>
+                <div>
+                    <h3>$245,800</h3>
+                    <p>Monthly Revenue</p>
+                </div>
+            </div>
+            <div class="metric-card">
+                <i class="bi bi-people"></i>
+                <div>
+                    <h3>1,234</h3>
+                    <p>New Patients</p>
+                </div>
+            </div>
+            <div class="metric-card">
+                <i class="bi bi-clipboard-data"></i>
+                <div>
+                    <h3>82%</h3>
+                    <p>Capacity Utilization</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report Controls -->
+        <div class="report-controls">
+            <div class="filter-group">
+                <select class="report-type">
+                    <option value="financial">Financial Reports</option>
+                    <option value="clinical">Clinical Analytics</option>
+                    <option value="operational">Operational Metrics</option>
+                    <option value="custom">Custom Report</option>
+                </select>
+                <input type="date" class="date-range-start">
+                <input type="date" class="date-range-end">
+                <button class="btn generate-report">
+                    <i class="bi bi-gear"></i> Generate Report
+                </button>
+            </div>
+            <div class="export-options">
+                <button class="btn export-pdf">
+                    <i class="bi bi-file-pdf"></i> PDF
+                </button>
+                <button class="btn export-excel">
+                    <i class="bi bi-file-spreadsheet"></i> Excel
+                </button>
+            </div>
+        </div>
+
+        <!-- Report Visualizations -->
+        <div class="report-visualizations">
+            <div class="chart-card">
+                <h4>Revenue Trend</h4>
+                <canvas id="revenueChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h4>Patient Demographics</h4>
+                <canvas id="demographicsChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h4>Appointment Types</h4>
+                <canvas id="appointmentTypesChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="report-data">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Total Appointments</th>
+                            <th>Revenue</th>
+                            <th>New Patients</th>
+                            <th>Follow-ups</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Sample Data Row -->
+                        <tr>
+                            <td>2023-08-01</td>
+                            <td>Cardiology</td>
+                            <td>45</td>
+                            <td>$12,450</td>
+                            <td>15</td>
+                            <td>30</td>
+                        </tr>
+                        <!-- Add more rows -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin-script.js"></script>
+    <script>
+        // Sample Chart Implementations
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Monthly Revenue',
+                    data: [12000, 19000, 3000, 5000, 2000, 3000],
+                    borderColor: '#4a86e8',
+                    tension: 0.4
+                }]
+            }
+        });
+
+        const demographicsCtx = document.getElementById('demographicsChart').getContext('2d');
+        new Chart(demographicsCtx, {
+            type: 'pie',
+            data: {
+                labels: ['18-25', '26-35', '36-45', '46-55', '56+'],
+                datasets: [{
+                    data: [12, 19, 3, 5, 2],
+                    backgroundColor: ['#4a86e8', '#34c38f', '#f46a6a', '#ffc107', '#6c757d']
+                }]
+            }
+        });
+    </script>
+</body>
+</html>

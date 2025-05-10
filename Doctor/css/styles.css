@@ -1,0 +1,709 @@
+/* General Styles */
+:root {
+    --primary-color: #4A90E2;      /* Medical blue */
+    --secondary-color: #27AE60;     /* Fresh green */
+    --accent-color: #3498DB;        /* Trustworthy blue */
+    --background-color: #F5F6FA;     /* Light background */
+    --text-color: #2C3E50;           /* Dark text */
+    --sidebar-width: 260px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    display: flex;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    background-color: #fff;
+    width: var(--sidebar-width);
+    height: 100vh;
+    padding: 20px;
+    position: fixed;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+
+.sidebar h2 {
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar li a {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin: 8px 0;
+    border-radius: 8px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.sidebar li a:hover {
+    background-color: #E8F4F8;
+    color: var(--primary-color);
+}
+
+.sidebar li a i {
+    margin-right: 12px;
+    font-size: 1.2rem;
+}
+
+.sidebar li.active a {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.doctor-profile img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: block;
+    margin: 30px auto 0;
+    border: 3px solid var(--primary-color);
+}
+
+/* Main Content Styles */
+.main-content {
+    margin-left: var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width));
+    padding: 25px;
+}
+
+.header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.header-bar h3 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+}
+
+.header-bar h4 {
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.menu-icon {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+/* Cards Section */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.card .icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    color: var(--text-color);
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.card p {
+    color: #7F8C8D;
+    font-size: 0.9rem;
+}
+
+/* Charts Container */
+.dashboard-content {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.chart-container, .patient-stats {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    flex: 1;
+    height: 380px;
+}
+
+/* Appointments Table */
+.appointments-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.appointments-title {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px;
+    text-align: left;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #ECF0F1;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.status-badge.completed {
+    background: #27AE60;
+    color: white;
+}
+
+.status-badge.pending {
+    background: #F1C40F;
+    color: white;
+}
+
+.btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.view-btn {
+    background: var(--accent-color);
+    color: white;
+}
+
+.diagnose-btn {
+    background: var(--secondary-color);
+    color: white;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* Pagination */
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 3px;
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.pagination a.active {
+    background: var(--primary-color);
+    color: white;
+}
+/* Filter Bar Styles */
+.filter-bar {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+    padding: 15px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.search-box {
+    flex: 1;
+    position: relative;
+    max-width: 400px;
+}
+
+.search-box i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #95A5A6;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 12px 15px 12px 40px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--background-color);
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+.search-box input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-color);
+    background-color: white;
+}
+
+/* Status Filter Styles */
+.status-filter {
+    padding: 12px 35px 12px 15px;
+    border: 2px solid #ECF0F1;
+    border-radius: 8px;
+    background-color: white;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237F8C8D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 15px;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.status-filter:hover {
+    border-color: var(--primary-color);
+}
+
+.status-filter:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(42, 92, 130, 0.1);
+}
+
+/* Diagnosis Specific Styles */
+.diagnoses-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.status-badge.pending {
+    background: #F1C40F;
+    color: white;
+}
+
+.status-badge.confirmed {
+    background: #27AE60;
+    color: white;
+}
+
+.status-badge.revised {
+    background: #3498DB;
+    color: white;
+}
+
+.new-diagnosis-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s;
+}
+
+.new-diagnosis-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}
+
+.filter-group {
+    display: flex;
+    gap: 15px;
+}
+
+.date-filter {
+    padding: 12px 35px 12px 15px;
+    border: 2px solid #ECF0F1;
+    border-radius: 8px;
+    background-color: white;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237F8C8D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 15px;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.edit-btn {
+    background: #F39C12;
+    color: white;
+}
+
+.review-btn {
+    background: #3498DB;
+    color: white;
+}
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .filter-bar {
+        flex-direction: column;
+    }
+    
+    .search-box {
+        max-width: 100%;
+    }
+    
+    .status-filter {
+        width: 100%;
+    }
+}
+/* Add to styles.css */
+.priority-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+.priority-badge.high { background: #E74C3C; color: white; }
+.priority-badge.medium { background: #F1C40F; color: white; }
+.priority-badge.low { background: #2ECC71; color: white; }
+
+.status-badge.in-progress { background: #3498DB; color: white; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-content {
+        flex-direction: column;
+    }
+    
+    .cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .sidebar {
+        width: 0;
+        overflow: hidden;
+        transition: 0.3s;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+    
+    .menu-icon:active + .sidebar {
+        width: var(--sidebar-width);
+    }
+}
+
+/* Disease Information Specific Styles */
+.diseases-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.status-badge.approved {
+    background: #27AE60;
+    color: white;
+}
+
+.status-badge.review {
+    background: #F1C40F;
+    color: white;
+}
+
+.status-badge.archived {
+    background: #95A5A6;
+    color: white;
+}
+
+.new-disease-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s;
+}
+
+.new-disease-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}
+
+.category-filter {
+    padding: 12px 35px 12px 15px;
+    border: 2px solid #ECF0F1;
+    border-radius: 8px;
+    background-color: white;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237F8C8D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 15px;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+/* Prevention Strategies Specific Styles */
+.prevention-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.status-badge.active {
+    background: #27AE60;
+    color: white;
+}
+
+.status-badge.review {
+    background: #F1C40F;
+    color: white;
+}
+
+.status-badge.archived {
+    background: #95A5A6;
+    color: white;
+}
+
+.new-strategy-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s;
+}
+
+.new-strategy-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}
+
+.effectiveness {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.effectiveness.high { background: #27AE60; color: white; }
+.effectiveness.medium { background: #F1C40F; color: white; }
+.effectiveness.low { background: #E74C3C; color: white; }
+
+/* Table Column Widths */
+th:nth-child(1) { width: 25%; }
+th:nth-child(2) { width: 20%; }
+th:nth-child(3) { width: 15%; }
+th:nth-child(4) { width: 12%; }
+th:nth-child(5) { width: 13%; }
+th:nth-child(6) { width: 10%; }
+th:nth-child(7) { width: 15%; }
+
+/* Patient Inquiries Specific Styles */
+.inquiries-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.status-badge.new {
+    background: #3498DB;
+    color: white;
+}
+
+.status-badge.in-progress {
+    background: #F1C40F;
+    color: white;
+}
+
+.status-badge.resolved {
+    background: #27AE60;
+    color: white;
+}
+
+.type-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+}
+
+.type-badge.medication { background: #8E44AD; color: white; }
+.type-badge.symptoms { background: #E74C3C; color: white; }
+.type-badge.appointment { background: #2ECC71; color: white; }
+.type-badge.general { background: #95A5A6; color: white; }
+
+.new-inquiry-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s;
+}
+
+.new-inquiry-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}
+
+.resolve-btn {
+    background: #27AE60;
+    color: white;
+}
+
+.history-btn {
+    background: #95A5A6;
+    color: white;
+}
+
+.reply-btn {
+    background: #3498DB;
+    color: white;
+}
+
+/* Consultations Specific Styles */
+.consultations-container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.status-badge.scheduled {
+    background: #3498DB;
+    color: white;
+}
+
+.status-badge.in-progress {
+    background: #F1C40F;
+    color: white;
+}
+
+.status-badge.completed {
+    background: #27AE60;
+    color: white;
+}
+
+.status-badge.canceled {
+    background: #E74C3C;
+    color: white;
+}
+
+.type-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.85rem;
+}
+
+.type-badge.video { background: #8E44AD; color: white; }
+.type-badge.in-person { background: #2ECC71; color: white; }
+.type-badge.phone { background: #3498DB; color: white; }
+
+.new-consultation-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 30px;
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s;
+}
+
+.new-consultation-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0,0,0,0.15);
+}
+
+.start-btn {
+    background: #27AE60;
+    color: white;
+}
+
+.reschedule-btn {
+    background: #F39C12;
+    color: white;
+}
+
+.join-btn {
+    background: #3498DB;
+    color: white;
+}

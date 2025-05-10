@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doctor Signup - Hevra</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #1b3b68, #3d5f8f);
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .custom-header {
+            background-color: #143256;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .card {
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: #1b3b68;
+        }
+
+        .form-label {
+            color: #1b3b68;
+            font-weight: 500;
+        }
+
+        .form-control,
+        .form-select {
+            background-color: #f9fbfc;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #007BFF;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        }
+
+        .btn-primary {
+            background-color: #1b3b68;
+            border: none;
+            padding: 12px;
+            font-weight: 500;
+            border-radius: 8px;
+        }
+
+        .btn-primary:hover {
+            background-color: #0f274c;
+        }
+
+        .custom-link {
+            display: block;
+            margin-top: 10px;
+            color: #1b3b68;
+            text-decoration: none;
+        }
+
+        .custom-link:hover {
+            text-decoration: underline;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        .progress-bar {
+            height: 5px;
+            background-color: #e0e0e0;
+            margin-top: 5px;
+            border-radius: 4px;
+        }
+
+        .progress {
+            height: 100%;
+            width: 0;
+            border-radius: 4px;
+        }
+
+        .progress.weak {
+            background-color: red;
+            width: 30%;
+        }
+
+        .progress.medium {
+            background-color: orange;
+            width: 60%;
+        }
+
+        .progress.strong {
+            background-color: green;
+            width: 100%;
+        }
+
+        @media (max-width: 576px) {
+            .custom-header {
+                font-size: 1.5rem;
+                padding: 15px;
+            }
+
+            .btn-primary {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="custom-header">
+        Hevra+ Doctor Registration
+    </div>
+
+    <!-- Signup Container -->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8 col-sm-10">
+                <div class="card p-4">
+                    <h3 class="card-title text-center mb-3">Create Your Doctor Account</h3>
+                    <form id="doctor-signup-form" novalidate>
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="fullName" placeholder="Dr. John Doe" required>
+                            <div class="invalid-feedback">Please enter your full name</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" placeholder="doctor@example.com"
+                                required>
+                            <div class="invalid-feedback">Please enter a valid email address</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" placeholder="e.g. +0552000000" required>
+                            <div class="invalid-feedback">Please enter a valid phone number</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="age" class="form-label">Age</label>
+                            <input type="number" class="form-control" id="age" min="21" placeholder="Enter your age"
+                                required>
+                            <div class="invalid-feedback">Please enter a valid age (minimum 21)</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Create Password</label>
+                            <div class="position-relative">
+                                <input type="password" class="form-control" id="password" placeholder="Minimum 8 characters"
+                                    required minlength="8">
+                                <i class="bi bi-eye-slash password-toggle" id="togglePassword"></i>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress" id="password-strength"></div>
+                            </div>
+                            <div class="invalid-feedback" id="password-error">Password must be at least 8 characters long</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <div class="position-relative">
+                                <input type="password" class="form-control" id="confirmPassword"
+                                    placeholder="Re-enter your password" required>
+                                <i class="bi bi-eye-slash password-toggle" id="toggleConfirmPassword"></i>
+                            </div>
+                            <div class="invalid-feedback" id="confirm-password-error">Passwords do not match</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="specialty" class="form-label">Specialty</label>
+                            <select class="form-select" id="specialty" required>
+                                <option value="" selected disabled>Select your specialty</option>
+                                <option value="Orthopedic Surgery">Orthopedic Surgery</option>
+                                <option value="Medical Genetics">Medical Genetics</option>
+                                <option value="Dermatology">Dermatology</option>
+                                <option value="Neurology">Neurology</option>
+                                <option value="Psychiatry">Psychiatry</option>
+                                <option value="Hematology">Hematology</option>
+                                <option value="Pediatrics">Pediatrics</option>
+                                <option value="Ophthalmology">Ophthalmology</option>
+                                <option value="Pulmonology">Pulmonology</option>
+                                <option value="Rheumatology">Rheumatology</option>
+                            </select>
+                            <div class="invalid-feedback">Please select your specialty</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="licenseNumber" class="form-label">Medical License Number</label>
+                            <input type="text" class="form-control" id="licenseNumber" required>
+                            <div class="invalid-feedback">Please enter your license number</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="certificate" class="form-label">Upload Certificate (PDF or Image)</label>
+                            <input type="file" class="form-control" id="certificate" accept=".pdf,.jpg,.png" required>
+                            <div class="invalid-feedback">Please upload your certificate</div>
+                        </div>
+
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="terms" required>
+                            <label class="form-check-label" for="terms">I agree to the <a href="#"
+                                    class="custom-link">Terms of Service</a> and <a href="#" class="custom-link">Privacy
+                                    Policy</a></label>
+                            <div class="invalid-feedback">You must agree to the terms</div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a href="doctor-login.html" class="custom-link">Already have an account? Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageModalLabel">Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalMessage"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Password strength indicator
+            const passwordInput = document.getElementById('password');
+            const strengthBar = document.getElementById('password-strength');
+
+            passwordInput.addEventListener('input', function() {
+                const value = passwordInput.value;
+                strengthBar.className = 'progress';
+                
+                if (value.length < 6) {
+                    strengthBar.classList.add('weak');
+                } else if (value.length < 10) {
+                    strengthBar.classList.add('medium');
+                } else {
+                    strengthBar.classList.add('strong');
+                }
+            });
+
+            // Toggle password visibility
+            const togglePassword = document.getElementById('togglePassword');
+            const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+            
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.classList.toggle('bi-eye');
+                this.classList.toggle('bi-eye-slash');
+            });
+            
+            toggleConfirmPassword.addEventListener('click', function() {
+                const confirmPassword = document.getElementById('confirmPassword');
+                const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+                confirmPassword.setAttribute('type', type);
+                this.classList.toggle('bi-eye');
+                this.classList.toggle('bi-eye-slash');
+            });
+
+            // Form submission
+            const signupForm = document.getElementById('doctor-signup-form');
+            const modal = new bootstrap.Modal(document.getElementById('messageModal'));
+
+            signupForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (!signupForm.checkValidity()) {
+                    e.stopPropagation();
+                    signupForm.classList.add('was-validated');
+                    return;
+                }
+
+                // Check password match
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                
+                if (password !== confirmPassword) {
+                    document.getElementById('confirm-password-error').style.display = 'block';
+                    return;
+                } else {
+                    document.getElementById('confirm-password-error').style.display = 'none';
+                }
+
+                // Get certificate file
+                const certificateFile = document.getElementById('certificate').files[0];
+                const certificateFileName = certificateFile ? certificateFile.name : '';
+
+                // Prepare doctor data
+                const doctorData = {
+                    fullName: document.getElementById('fullName').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    phone: document.getElementById('phone').value.trim(),
+                    age: document.getElementById('age').value,
+                    password: password,
+                    specialty: document.getElementById('specialty').value,
+                    licenseNumber: document.getElementById('licenseNumber').value.trim(),
+                    certificate: certificateFileName,
+                    registrationDate: new Date().toISOString(),
+                    status: 'pending' // Default status for new doctors
+                };
+
+            
+                const doctors = JSON.parse(localStorage.getItem('doctors'))|| [];
+                doctors.push(doctorData);
+                localStorage.setItem('doctors', JSON.stringify(doctors));
+
+                // Show success message
+                document.getElementById('modalMessage').innerHTML = `
+                    <div class="text-center">
+                        <i class="bi bi-check-circle-fill text-success" style="font-size: 3rem;"></i>
+                        <h4 class="mt-3">Registration Successful!</h4>
+                        <p>Your account is pending approval. We'll notify you via email once your account is activated.</p>
+                    </div>
+                `;
+                modal.show();
+
+                // Reset form
+                signupForm.reset();
+                signupForm.classList.remove('was-validated');
+
+                // Redirect after delay
+                setTimeout(() => {
+                    window.location.href = 'doctor-login.html';
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+
+</html>
