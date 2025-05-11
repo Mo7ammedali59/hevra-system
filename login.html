@@ -364,9 +364,61 @@
         alert("لم يتم العثور على بيانات هذا المستخدم.");
       }
     } catch (error) {
-      alert("خطأ في تسجيل الدخول: البريد أو كلمة المرور غير صحيحة.");
-      console.error("Login error:", error.message);
+      alert("خطأ في تسجيل الدخول: " + error.message);
     }
+  });
+</script>
+
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCtq84Ryxzmirz7dnIpM-P8qOZRA_0we70",
+    authDomain: "hevra-70517.firebaseapp.com",
+    projectId: "hevra-70517",
+    storageBucket: "hevra-70517.appspot.com",
+    messagingSenderId: "368783122548",
+    appId: "1:368783122548:web:ace464bec39d7185cbb121"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  document.getElementById("login-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        const userRef = doc(db, "Users", user.uid);
+        getDoc(userRef).then((docSnap) => {
+          if (docSnap.exists()) {
+            const role = docSnap.data().role;
+            if (role === "Admin") {
+              window.location.href = "/Admin/dashboard.html";
+            } else if (role === "Doctor") {
+              window.location.href = "/Doctor/dashboard.html";
+            } else if (role === "Patient") {
+              window.location.href = "/Patient/dashboard.html";
+            } else {
+              alert("نوع الحساب غير معروف");
+            }
+          } else {
+            alert("لا يوجد بيانات لهذا المستخدم في قاعدة البيانات");
+          }
+        });
+      })
+      .catch((error) => {
+        alert("خطأ: البريد أو كلمة المرور غير صحيحة");
+        console.error("تفاصيل الخطأ:", error.message);
+      });
   });
 </script>
 
