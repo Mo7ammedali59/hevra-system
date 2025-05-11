@@ -220,9 +220,9 @@
         return db.collection("users").doc(user.uid).get().then(doc => {
           const data = doc.data();
           if (data.type === "Admin") {
-            window.location.href = "admin-dashboard.html";
+            window.location.href = "Admin/dashboard.html";
           } else if (data.type === "Doctor") {
-            window.location.href = "doctor-dashboard.html";
+            window.location.href = "Doctor/dashboard.html";
           } else if (data.type === "Patient") {
             window.location.href = "patient-dashboard.html";
           } else {
@@ -274,9 +274,9 @@
         const role = data.role || data.type;
 
         if (role === "Admin") {
-          window.location.href = "admin-dashboard.html";
+          window.location.href = "Admin/dashboard.html";
         } else if (role === "Doctor") {
-          window.location.href = "doctor-dashboard.html";
+          window.location.href = "Doctor/dashboard.html";
         } else if (role === "Patient") {
           window.location.href = "patient-dashboard.html";
         } else {
