@@ -3,10 +3,21 @@
     "public": ".",
     "ignore": [
       "firebase.json",
-      "**/.*",
       "**/node_modules/**"
     ],
     "rewrites": [
+      {
+        "source": "/Admin/dashboard.html",
+        "destination": "/Admin/dashboard.html"
+      },
+      {
+        "source": "/Doctor/dashboard.html",
+        "destination": "/Doctor/dashboard.html"
+      },
+      {
+        "source": "/Patient/patient-dashboard.html",
+        "destination": "/Patient/patient-dashboard.html"
+      },
       {
         "source": "**",
         "destination": "/index.html"
