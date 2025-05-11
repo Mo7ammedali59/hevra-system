@@ -270,13 +270,13 @@
 
 <script>
   const firebaseConfig = {
-    apiKey: "AIzaSyCtq84Ryxnzmirz7dnlPq8QZRA_0we70",
-    authDomain: "hevra-70517.firebaseapp.com",
-    projectId: "hevra-70517",
-    storageBucket: "hevra-70517.appspot.com",
-    messagingSenderId: "368783122548",
-    appId: "1:368783122548:web:ace464dec39d7185cbb121"
-  };
+  apiKey: "AIzaSyCtq84Ryxzmirz7dnIpM-P8qOZRA_0we70",
+  authDomain: "hevra-70517.firebaseapp.com",
+  projectId: "hevra-70517",
+  storageBucket: "hevra-70517.appspot.com",
+  messagingSenderId: "368783122548",
+  appId: "1:368783122548:web:ace464bec39d7185cbb121"
+};
 
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
@@ -310,59 +310,6 @@
         alert("Error: " + error.message);
       });
   }
-</script>
-
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyCtq84Ryxnzmirz7dnlPq8QZRA_0we70",
-    authDomain: "hevra-70517.firebaseapp.com",
-    projectId: "hevra-70517",
-    storageBucket: "hevra-70517.appspot.com",
-    messagingSenderId: "368783122548",
-    appId: "1:368783122548:web:ace464dec39d7185cbb121"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  document.getElementById("login-form").addEventListener("submit", async function (e) {
-    e.preventDefault();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value;
-
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      const docRef = doc(db, "Users", user.uid);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        const role = data.role;
-
-        if (role === "Admin") {
-          window.location.href = "/Admin/dashboard.html";
-        } else if (role === "Doctor") {
-          window.location.href = "/Doctor/dashboard.html";
-        } else if (role === "Patient") {
-          window.location.href = "/Patient/dashboard.html";
-        } else {
-          alert("Role not recognized.");
-        }
-      } else {
-        alert("User data not found in Firestore.");
-      }
-    } catch (error) {
-      alert("Login error: " + error.message);
-    }
-  });
 </script>
 
 </body>

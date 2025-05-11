@@ -402,13 +402,13 @@
 
 <script>
   const firebaseConfig = {
-    apiKey: "AIzaSyCtq84Ryxnzmirz7dnlPq8QZRA_0we70",
-    authDomain: "hevra-70517.firebaseapp.com",
-    projectId: "hevra-70517",
-    storageBucket: "hevra-70517.appspot.com",
-    messagingSenderId: "368783122548",
-    appId: "1:368783122548:web:ace464dec39d7185cbb121"
-  };
+  apiKey: "AIzaSyCtq84Ryxzmirz7dnIpM-P8qOZRA_0we70",
+  authDomain: "hevra-70517.firebaseapp.com",
+  projectId: "hevra-70517",
+  storageBucket: "hevra-70517.appspot.com",
+  messagingSenderId: "368783122548",
+  appId: "1:368783122548:web:ace464bec39d7185cbb121"
+};
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
   const db = firebase.firestore();
@@ -456,13 +456,13 @@
 
 <script>
   const firebaseConfig = {
-    apiKey: "AIzaSyCtq84Ryxnzmirz7dnlPq8QZRA_0we70",
-    authDomain: "hevra-70517.firebaseapp.com",
-    projectId: "hevra-70517",
-    storageBucket: "hevra-70517.appspot.com",
-    messagingSenderId: "368783122548",
-    appId: "1:368783122548:web:ace464dec39d7185cbb121"
-  };
+  apiKey: "AIzaSyCtq84Ryxzmirz7dnIpM-P8qOZRA_0we70",
+  authDomain: "hevra-70517.firebaseapp.com",
+  projectId: "hevra-70517",
+  storageBucket: "hevra-70517.appspot.com",
+  messagingSenderId: "368783122548",
+  appId: "1:368783122548:web:ace464bec39d7185cbb121"
+};
 
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
@@ -512,49 +512,6 @@
   }
 </script>
 <div id="recaptcha-container"></div>
-
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
-  import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  document.getElementById("signupForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const role = document.getElementById("role").value;
-
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      await setDoc(doc(db, "Users", user.uid), {
-        email: email,
-        role: role
-      });
-
-      alert("Account created successfully!");
-      window.location.href = "login.html";
-    } catch (error) {
-      alert("Error: " + error.message);
-    }
-  });
-</script>
 
 </body>
 </html>
