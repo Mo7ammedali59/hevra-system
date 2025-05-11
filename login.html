@@ -216,13 +216,16 @@
     auth.signInWithEmailAndPassword(email, password)
       .then(userCredential => {
         const user = userCredential.user;
-        
+        if (!user.emailVerified) {
+          alert("Please verify your email before logging in.");
+          return auth.signOut();
+        }
         return db.collection("users").doc(user.uid).get().then(doc => {
           const data = doc.data();
           if (data.type === "Admin") {
-            window.location.href = "Admin/dashboard.html";
+            window.location.href = "admin-dashboard.html";
           } else if (data.type === "Doctor") {
-            window.location.href = "Doctor/dashboard.html";
+            window.location.href = "doctor-dashboard.html";
           } else if (data.type === "Patient") {
             window.location.href = "patient-dashboard.html";
           } else {
@@ -237,11 +240,7 @@
 </script>
 
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
-
+<script>
   const firebaseConfig = {
     apiKey: "AIzaSyCtq84Ryxnzmirz7dnlPq8QZRA_0we70",
     authDomain: "hevra-70517.firebaseapp.com",
@@ -251,47 +250,43 @@
     appId: "1:368783122548:web:ace464dec39d7185cbb121"
   };
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
 
-  document.getElementById("login-form").addEventListener("submit", async function (e) {
-    e.preventDefault();
+  function loginUser() {
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
 
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+    auth.signInWithEmailAndPassword(email, password)
+      .then(userCredential => {
+        const user = userCredential.user;
 
-      
+        return db.collection("users").doc(user.uid).get().then(doc => {
+          const data = doc.data();
+          const role = (data.role || data.type || "").toLowerCase();
 
-      const docRef = doc(db, "users", user.uid);
-      const docSnap = await getDoc(docRef);
+          if (role === "admin") {
+            window.location.href = "Admin/dashboard.html";
+          } else if (role === "doctor") {
+            window.location.href = "Doctor/dashboard.html";
+          } else if (role === "patient") {
+            window.location.href = "patient-dashboard.html";
+          } else {
+            alert("Role not recognized: " + role);
+          }
+        });
+      })
+      .catch(error => {
+        alert("Error: " + error.message);
+      });
+  }
 
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        
-        const role = (data.role || data.type || "").toLowerCase();
-        if (role === "admin") {
-          window.location.href = "Admin/dashboard.html";
-        } else if (role === "doctor") {
-          window.location.href = "Doctor/dashboard.html";
-        } else if (role === "patient") {
-          window.location.href = "patient-dashboard.html";
-        } else {
-          alert("Role not recognized: " + role);
-        }
-    
-        }
-      } else {
-        alert("User data not found in Firestore.");
-      }
-    } catch (error) {
-      console.error("Login error:", error.message);
-      alert("Error: " + error.message);
-    }
+  document.getElementById("login-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+    loginUser();
   });
 </script>
+
 </body>
 </html>
