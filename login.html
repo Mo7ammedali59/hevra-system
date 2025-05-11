@@ -313,6 +313,7 @@
 </script>
 
 
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
@@ -340,12 +341,16 @@
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
+      if (!user.emailVerified) {
+        alert("يرجى تفعيل بريدك الإلكتروني قبل تسجيل الدخول.");
+        return;
+      }
+
       const docRef = doc(db, "Users", user.uid);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        const data = docSnap.data();
-        const role = data.role;
+        const role = docSnap.data().role;
 
         if (role === "Admin") {
           window.location.href = "/Admin/dashboard.html";
@@ -354,16 +359,17 @@
         } else if (role === "Patient") {
           window.location.href = "/Patient/dashboard.html";
         } else {
-          alert("Role not recognized.");
+          alert("نوع الحساب غير معروف.");
         }
       } else {
-        alert("User data not found in Firestore.");
+        alert("بيانات المستخدم غير موجودة.");
       }
     } catch (error) {
-      alert("Login error: " + error.message);
+      alert("خطأ أثناء تسجيل الدخول: " + error.message);
     }
   });
 </script>
+
 
 </body>
 </html>
