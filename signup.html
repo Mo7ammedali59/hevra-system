@@ -432,7 +432,7 @@
       })
       .then((userCredential) => {
         const uid = userCredential.user.uid;
-        userCredential.user.sendEmailVerification();
+        userCredential.
         return db.collection("users").doc(uid).set({
           name, email, phone, type
         });
@@ -494,7 +494,7 @@
 
         return auth.createUserWithEmailAndPassword(email, password)
           .then(userCredential => {
-            userCredential.user.sendEmailVerification();
+            userCredential.
             return db.collection("users").doc(userCredential.user.uid).set({
               name,
               email,
@@ -548,7 +548,7 @@
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      await sendEmailVerification(userCredential.user);
+      await 
 
       await setDoc(doc(db, "Users", userCredential.user.uid), {
         firstName,
