@@ -271,16 +271,18 @@
 
       if (docSnap.exists()) {
         const data = docSnap.data();
-        const role = data.role || data.type;
-
-        if (role === "Admin") {
+        
+        const role = (data.role || data.type || "").toLowerCase();
+        if (role === "admin") {
           window.location.href = "Admin/dashboard.html";
-        } else if (role === "Doctor") {
+        } else if (role === "doctor") {
           window.location.href = "Doctor/dashboard.html";
-        } else if (role === "Patient") {
+        } else if (role === "patient") {
           window.location.href = "patient-dashboard.html";
         } else {
-          alert("Role not recognized.");
+          alert("Role not recognized: " + role);
+        }
+    
         }
       } else {
         alert("User data not found in Firestore.");
