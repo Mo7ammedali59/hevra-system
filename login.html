@@ -40,7 +40,8 @@
         .then((userCredential) => {
           const user = userCredential.user;
 
-          // لا نتحقق من البريد الإلكتروني
+          // حذف التحقق من البريد الإلكتروني بالكامل
+
           const userRef = doc(db, "Users", user.uid);
           getDoc(userRef).then((docSnap) => {
             if (docSnap.exists()) {
