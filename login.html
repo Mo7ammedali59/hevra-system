@@ -364,7 +364,8 @@
         alert("لم يتم العثور على بيانات هذا المستخدم.");
       }
     } catch (error) {
-      alert("خطأ في تسجيل الدخول: " + error.message);
+      alert("خطأ في تسجيل الدخول: البريد أو كلمة المرور غير صحيحة.");
+      console.error("Login error:", error.message);
     }
   });
 </script>
