@@ -232,7 +232,15 @@
                             </div>
 
                             <button type="submit" class="btn btn-primary w-100">Create Account</button>
-                        </form>
+                        
+<div id="otp-section" style="display:none; margin-top: 20px;">
+  <label for="otp">رمز التحقق (OTP)</label>
+  <input type="text" id="otp" placeholder="أدخل الرمز">
+  <button type="button" id="verify-otp">تأكيد الرمز</button>
+</div>
+<div id="recaptcha-container"></div>
+
+</form>
                     </div>
 
                     <div class="auth-footer">
@@ -516,7 +524,7 @@
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
-  import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithPhoneNumber, RecaptchaVerifier, sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
   import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -532,21 +540,42 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
+  window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+    'size': 'invisible'
+  });
+
   document.getElementById("signup-form").addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const firstName = document.getElementById("firstName").value.trim();
-    const middleName = document.getElementById("middleName").value.trim();
-    const lastName = document.getElementById("lastName").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const password = document.getElementById("password").value;
-    const gender = document.getElementById("gender").value;
-    const role = document.getElementById("userType").value;
-    const dob = document.getElementById("dob") ? document.getElementById("dob").value : "";
-    const condition = document.getElementById("condition") ? document.getElementById("condition").value : "";
+    const phoneNumber = document.getElementById("phone").value.trim();
+    const appVerifier = window.recaptchaVerifier;
 
     try {
+      const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
+      window.confirmationResult = confirmationResult;
+      document.getElementById("otp-section").style.display = "block";
+    } catch (error) {
+      alert("فشل إرسال رمز التحقق: " + error.message);
+    }
+  });
+
+  document.getElementById("verify-otp").addEventListener("click", async function () {
+    const otpCode = document.getElementById("otp").value;
+
+    try {
+      await window.confirmationResult.confirm(otpCode);
+
+      const firstName = document.getElementById("firstName").value.trim();
+      const middleName = document.getElementById("middleName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const password = document.getElementById("password").value;
+      const gender = document.getElementById("gender").value;
+      const role = document.getElementById("userType").value;
+      const dob = document.getElementById("dob") ? document.getElementById("dob").value : "";
+      const condition = document.getElementById("condition") ? document.getElementById("condition").value : "";
+
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await sendEmailVerification(userCredential.user);
 
@@ -562,10 +591,10 @@
         condition
       });
 
-      alert("Account created! Verification email sent.");
+      alert("تم إنشاء الحساب! تحقق من بريدك الإلكتروني.");
       window.location.href = "login.html";
     } catch (error) {
-      alert("Error: " + error.message);
+      alert("رمز OTP غير صحيح: " + error.message);
     }
   });
 </script>
