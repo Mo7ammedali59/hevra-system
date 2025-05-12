@@ -550,7 +550,17 @@
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await 
 
-      
+      await setDoc(doc(db, "Users", userCredential.user.uid), {
+        firstName,
+        middleName,
+        lastName,
+        email,
+        phone,
+        gender,
+        role,
+        dob,
+        condition
+      });
 
       alert("Account created! Verification email sent.");
       window.location.href = "login.html";

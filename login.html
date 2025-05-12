@@ -187,7 +187,138 @@
   </div>
 
   <!-- Scripts -->
-  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Toggle password visibility
+      const togglePassword = document.getElementById('togglePassword');
+      const passwordInput = document.getElementById('password');
+      
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.classList.toggle('bi-eye');
+        this.classList.toggle('bi-eye-slash');
+      });
+
+      // Form submission
+      const loginForm = document.getElementById('login-form');
+      const modal = new bootstrap.Modal(document.getElementById('messageModal'));
+
+      // Modal show function
+      function showModal(title, message, autoHide = false) {
+        document.getElementById('messageModalLabel').textContent = title;
+        document.getElementById('modalMessage').innerHTML = message;
+        modal.show();
+        if (autoHide) {
+          setTimeout(() => modal.hide(), 2000);
+        }
+      }
+
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        if (!loginForm.checkValidity()) {
+          e.stopPropagation();
+          loginForm.classList.add('was-validated');
+          return;
+        }
+
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const rememberMe = document.getElementById('rememberMe').checked;
+
+        // Get stored users from localStorage (in a real app, this would be an API call)
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        
+        // Find the user with matching email
+        const user = users.find(u => u.email === email);
+        
+        if (!user) {
+          showModal('Error', 'No account found with this email address. Please sign up.');
+          return;
+        }
+
+        // In a real app, you would hash the password and compare with stored hash
+        if (user.password !== password) {
+          showModal('Error', 'Incorrect password. Please try again.');
+          return;
+        }
+
+        // For demo purposes, we'll store the logged-in user in sessionStorage
+        sessionStorage.setItem('currentUser', JSON.stringify(user));
+        
+        // Set remember me cookie if checked
+        if (rememberMe) {
+          document.cookie = `userEmail=${email}; max-age=${30 * 24 * 60 * 60}; path=/`;
+        }
+
+        showModal('Login Successful', 'You are being redirected to your dashboard...', true);
+        
+        setTimeout(() => {
+          const redirectUrl = user.userType === 'Admin' ? 'admin/dashboard.html' : 'Patient/patient-dashboard.html';
+          window.location.href = redirectUrl;
+        }, 2000);
+      });
+    });
+  </script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCtq84Ryxzmirz7dnIpM-P8qOZRA_0we70",
+    authDomain: "hevra-70517.firebaseapp.com",
+    projectId: "hevra-70517",
+    storageBucket: "hevra-70517.appspot.com",
+    messagingSenderId: "368783122548",
+    appId: "1:368783122548:web:ace464bec39d7185cbb121"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.getElementById("login-form");
+    if (!loginForm) return;
+
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (!docSnap.exists()) {
+          alert("No user data found!");
+          return;
+        }
+
+        const data = docSnap.data();
+        const role = (data.role || "").trim().toLowerCase();
+
+        if (role === "patient") {
+          window.location.href = "Patient/patient-dashboard.html";
+        } else if (role === "doctor") {
+          window.location.href = "Doctor/dashboard.html";
+        } else if (role === "admin") {
+          window.location.href = "Admin/dashboard.html";
+        } else {
+          alert("Unrecognized role: " + role);
+        }
+      } catch (error) {
+        alert("Firebase Login Error: " + error.message);
+      }
+    });
+  });
+</script>
 
 
 <script type="module">
@@ -218,9 +349,11 @@
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
-        if (email.includes("admin")) {
+        const role = localStorage.getItem("role")?.toLowerCase() || "";
+
+        if (role === "admin") {
           window.location.href = "Admin/dashboard.html";
-        } else if (email.includes("doctor")) {
+        } else if (role === "doctor") {
           window.location.href = "Doctor/dashboard.html";
         } else {
           window.location.href = "Patient/patient-dashboard.html";
@@ -232,6 +365,5 @@
     });
   });
 </script>
-
 </body>
 </html>
