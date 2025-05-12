@@ -550,7 +550,7 @@
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await 
 
-      await setDoc(doc(db, "Users", userCredential.user.uid), {
+      await setDoc(doc(db, "users", userCredential.user.uid), {
         firstName,
         middleName,
         lastName,
