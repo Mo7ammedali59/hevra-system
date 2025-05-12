@@ -193,7 +193,6 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
-  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyCtq84Ryxzmirz7dnIpM-P8qOZRA_0we70",
@@ -206,7 +205,6 @@
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
-  const db = getFirestore(app);
 
   document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("login-form");
@@ -219,27 +217,15 @@
 
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-        const docRef = doc(db, "users", user.uid);
-        const docSnap = await getDoc(docRef);
 
-        if (!docSnap.exists()) {
-          alert("No user data found!");
-          return;
-        }
-
-        const data = docSnap.data();
-        const role = (data.role || "").trim().toLowerCase();
-
-        if (role === "admin") {
+        if (email.includes("admin")) {
           window.location.href = "Admin/dashboard.html";
-        } else if (role === "doctor") {
+        } else if (email.includes("doctor")) {
           window.location.href = "Doctor/dashboard.html";
-        } else if (role === "patient") {
-          window.location.href = "Patient/patient-dashboard.html";
         } else {
-          alert("Unrecognized role: " + role);
+          window.location.href = "Patient/patient-dashboard.html";
         }
+
       } catch (error) {
         alert("Firebase Login Error: " + error.message);
       }
